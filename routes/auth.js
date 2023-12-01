@@ -1,4 +1,5 @@
 const router = require("express").Router()
+const path = require('path')
 const passport = require("passport")
 
 const CLIENT_URL = "http://localhost:3000/"
@@ -32,25 +33,46 @@ router.get('/logout', (req, res) => {
     });
 });
 
+router.get("/login", (req, res) => {
+	if (req.user) {
+		res.redirect("/dashboard.html")
+		return
+	}
+    const filePath = path.join(__dirname, '../client', "/index.html"); 
+    res.sendFile(filePath);
+})
+
 const isAuth = (req, res, next) => {
 	if (req.isAuthenticated()) {
 	  next();
 	} else {
-	  res.redirect('/client/index.html');
+	  res.redirect('/login');
 	}
   };
 
+router.get("/index.html", isAuth, (req, res) => {
+    if (req.isAuthenticated()) {
+        res.redirect("/dashboard.html")
+    } else {
+        res.redirect('/')
+    }
+})
+
+
 router.get("/", isAuth, (req, res) => {
-	res.sendFile("/dashboard.html")
+    const filePath = path.join(__dirname, '../client', "/dashboard.html"); 
+    res.sendFile(filePath);
 })
 
 const protectedRoutes = ["/dashboard.html"];
 
 protectedRoutes.forEach(route => {
-  router.get(route, isAuth, (req, res) => {
-    res.sendFile(`/client${route}`);
+    router.get(route, isAuth, (req, res) => {
+      // Use path.join to construct the correct file path
+      const filePath = path.join(__dirname, '../client', route);
+      res.sendFile(filePath);
+    });
   });
-});
 
 
 
