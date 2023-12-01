@@ -14,13 +14,17 @@ app.set("trust proxy", 2);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(session(
-    {
-        secret: "secret-key",
-        resave: false,
-        saveUninitialized: false,
-    }
-))
+
+app.use(session({
+	secret: 'my-secret-key',
+	resave: false,
+	saveUninitialized: false,
+	cookie: { 
+		// httpOnly: true,
+		secure : true,
+		maxAge: 24 * 60 * 60 * 1000,
+	 }
+}))
 
 app.use(passport.initialize())
 app.use(passport.session())
