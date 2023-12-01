@@ -2,7 +2,7 @@ const router = require("express").Router()
 const path = require('path')
 const passport = require("passport")
 
-const CLIENT_URL = "http://localhost:3000/"
+const CLIENT_URL = "https://node-js-express-auth-template.azurewebsites.net/"
 
 router.get("/login/failed", (req,res) => {
     res.status(401).json({

@@ -5,8 +5,8 @@ const passport = require('passport')
 const GOOGLE_CLIENT_ID = "20848583384-5u1fqp9tpcvojhu3c48kjf0tnfphj2t3.apps.googleusercontent.com"
 const GOOGLE_CLIENT_SECRET = "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"
 
-const GITHUB_CLIENT_ID = "e604a0458b19b95cdfca"
-const GITHUB_CLIENT_SECRET = "c32d3b7fb5dd5b0a1e671000b1e75f73fee187f6"
+const GITHUB_CLIENT_ID = "03d4ebcb02c54cf4ed6e"
+const GITHUB_CLIENT_SECRET = "8d8721f968c28127a975599733590c7a39d486ea"
 
 
 passport.use(new GoogleStrategy({
@@ -19,6 +19,7 @@ passport.use(new GoogleStrategy({
     // User.findOrCreate({ googleId: profile.id }, function (err, user) {
     //   return cb(err, user);
     // });
+    console.log(profile)
     done(null, profile)
   }
 ));
@@ -30,6 +31,7 @@ passport.use(new GitHubStrategy({
     callbackURL: "/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
+    console.log(profile)
     done(null, profile)
   }
 ));
