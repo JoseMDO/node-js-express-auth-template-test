@@ -2,7 +2,7 @@ const router = require("express").Router()
 const path = require('path')
 const passport = require("passport")
 
-const CLIENT_URL = "https://node-js-express-auth-template.azurewebsites.net/"
+const CLIENT_URL = "https://node-js-express-auth-template.azurewebsites.net"
 
 router.get("/login/failed", (req,res) => {
     res.status(401).json({
@@ -99,4 +99,5 @@ router.get("/auth/github/callback",passport.authenticate("github", {
     failureRedirect: "/login/failed",
   })
 );
+
 module.exports = router
