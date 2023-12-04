@@ -106,4 +106,5 @@ dist
 # MacOS .DS_Store
 .DS_Store
 
-.env
+
+web.config
